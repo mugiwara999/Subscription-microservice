@@ -6,13 +6,13 @@ import jwt from "jsonwebtoken";
 export const authService = {
     async signup(email: string, password: string) {
 
-        const existingUser = await authRepo.findUserByEmail(email);
+        const existingUser = await authRepo.findByEmail(email);
         if (existingUser) {
             throw new Error("User already exists");
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await authRepo.createUser(email, hashedPassword);
+        const user = await authRepo.create(email, hashedPassword);
 
         if (!user) {
             throw new Error("Failed to create user");
@@ -23,7 +23,7 @@ export const authService = {
     },
 
     async login(email: string, password: string) {
-        const user = await authRepo.findUserByEmail(email);
+        const user = await authRepo.findByEmail(email);
         if (!user) {
             throw new Error("User not found");
         }
