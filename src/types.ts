@@ -1,4 +1,4 @@
-import {z} from 'zod'
+import { z } from 'zod'
 
 export const signupSchema = z.object({
     email: z.string().email(),
@@ -19,7 +19,7 @@ export const createPlanSchema = z.object({
     price: z.number(),
     features: z.array(z.string()),
     duration: z.number(),
-    })
+})
 
 export type CreatePlanSchema = z.infer<typeof createPlanSchema>
 
@@ -34,7 +34,12 @@ export type UpdatePlanSchema = z.infer<typeof updatePlanSchema>
 
 export const createSubscriptionSchema = z.object({
     plan_id: z.string(),
-    user_id: z.string()
 })
 
 export type CreateSubscriptionSchema = z.infer<typeof createSubscriptionSchema>
+
+export const upgradeSubscriptionSchema = z.object({
+    plan_id: z.string(),
+})
+
+export type UpgradeSubscriptionSchema = z.infer<typeof upgradeSubscriptionSchema>

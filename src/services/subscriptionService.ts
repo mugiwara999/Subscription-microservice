@@ -21,6 +21,7 @@ export const subscriptionService = {
             user_id: data.user_id,
             plan_id: data.plan_id,
             expiresAt,
+            status: "ACTIVE"
         });
 
         ScheduleExpiration(sub.id, expiresAt.getTime() - Date.now());
@@ -47,5 +48,24 @@ export const subscriptionService = {
 
     async delete(user_id: string): Promise<Subscription | null> {
         return await subscriptionRepo.deleteByUserId(user_id);
+    },
+
+    async upgradeSubscription(id: string, plan_id: string): Promise<Subscription | null> {
+        const sub = await subscriptionRepo.getByUserId(id);
+        if (!sub) {
+            throw { statusCode: 404, message: 'Subscription not found' };
+        }
+        const plan = await planRepo.getById(plan_id);
+        if (!plan) {
+            throw { statusCode: 404, message: 'Plan not found' };
+        }
+
+        const now = new Date();
+        const expiresAt = new Date(now.getTime() + plan.duration * 24 * 60 * 60 * 1000);
+
+        const updated = await subscriptionRepo.updatePlan(sub.id, { plan_id, expiresAt });
+        const delay = expiresAt.getTime() - Date.now();
+        ScheduleExpiration(updated.id, delay);
+        return updated;
     }
 }

@@ -13,7 +13,7 @@ export const authController = {
 
             const { email, password } = parsedBody.data;
             const { user, token } = await authService.login(email, password);
-            res.status(200).json({ user, token });
+            res.status(200).json({ user: user.id, token: `Bearer ${token}` });
         } catch (error) {
             next(error);
         }
@@ -29,7 +29,7 @@ export const authController = {
 
             const { email, password } = parsedBody.data;
             const { user, token } = await authService.signup(email, password);
-            res.status(200).json({ user, token });
+            res.status(200).json({ user: user.id, token: `Bearer ${token}` });
         } catch (error) {
             next(error);
         }

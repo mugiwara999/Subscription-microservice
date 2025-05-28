@@ -1,4 +1,4 @@
-import { SubscriptionStatus } from "@prisma/client";
+import { Subscription, SubscriptionStatus } from "@prisma/client";
 import prisma from "../config/prisma";
 
 export const subscriptionRepo = {
@@ -6,6 +6,7 @@ export const subscriptionRepo = {
         expiresAt: Date;
         user_id: string;
         plan_id: string;
+        status: "ACTIVE";
     }) => {
         return prisma.subscription.create({ data });
     },
@@ -31,5 +32,18 @@ export const subscriptionRepo = {
 
     deleteByUserId: (user_id: string) => {
         return prisma.subscription.delete({ where: { user_id } });
-    }
+    },
+
+    updatePlan: async (
+    id: string,
+    data: { plan_id: string; expiresAt: Date }
+  ): Promise<Subscription> =>
+    prisma.subscription.update({
+      where: { id },
+      data: {
+        plan_id: data.plan_id,
+        expiresAt: data.expiresAt,
+        status: SubscriptionStatus.ACTIVE, 
+      },
+    }),
 }

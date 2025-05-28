@@ -1,12 +1,13 @@
 import express from "express";
 import { planController } from "../controllers/planController";
+import { authMiddleware } from "../middleware/auth";
 
 const planRouter = express.Router();
 
 planRouter.get("/", planController.getAll);
 planRouter.get("/:id", planController.getById);
-planRouter.post("/", planController.create);
-planRouter.put("/:id", planController.update);
-planRouter.delete("/:id", planController.delete);
+planRouter.post("/", authMiddleware, planController.create);
+planRouter.put("/:id", authMiddleware, planController.update);
+planRouter.delete("/:id", authMiddleware, planController.delete);
 
 export default planRouter;
