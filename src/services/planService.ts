@@ -1,4 +1,4 @@
-import { planRepo } from "../repositories/PlanRepo";
+import { planRepo } from "../repositories/planRepo";
 import redis from "../config/redis";
 import { Plan } from "@prisma/client";
 const CACHE_KEY = "plans";
