@@ -4,4 +4,4 @@
 $ docker run -d --name redis -p 6379:6379 redis
 
 ## Run Prostgres locally
-$ docker run --name postgres -e POSTGRES_PASSWORD=postgres -d postgres
+$ docker run --name postgres -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 postgres
