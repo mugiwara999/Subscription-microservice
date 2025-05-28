@@ -3,10 +3,10 @@ import { planController } from "../controllers/planController";
 
 const planRouter = express.Router();
 
-planRouter.get("/", planController.getAllPlans);
-planRouter.get("/:id", planController.getPlanById);
-planRouter.post("/", planController.createPlan);
-planRouter.put("/:id", planController.updatePlan);
-planRouter.delete("/:id", planController.deletePlan);
+planRouter.get("/", planController.getAll);
+planRouter.get("/:id", planController.getById);
+planRouter.post("/", planController.create);
+planRouter.put("/:id", planController.update);
+planRouter.delete("/:id", planController.delete);
 
 export default planRouter;
