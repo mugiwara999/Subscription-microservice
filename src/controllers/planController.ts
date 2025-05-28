@@ -26,7 +26,8 @@ export const planController = {
         try {
             const parsedBody = createPlanSchema.safeParse(req.body);
             if (!parsedBody.success) {
-                return res.status(400).json({ error: "Invalid request body" });
+                res.status(400).json({ error: "Invalid request body" });
+                return;
             }
 
             const { name, price, features, duration } = parsedBody.data;
@@ -42,7 +43,8 @@ export const planController = {
             const { id } = req.params;
             const parsedBody = updatePlanSchema.safeParse(req.body);
             if (!parsedBody.success) {
-                return res.status(400).json({ error: "Invalid request body" });
+                res.status(400).json({ error: "Invalid request body" });
+                return;
             }
 
             const { name, price, features, duration } = parsedBody.data;

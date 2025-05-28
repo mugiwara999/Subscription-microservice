@@ -7,7 +7,8 @@ export const authController = {
         try {
             const parsedBody = loginSchema.safeParse(req.body);
             if (!parsedBody.success) {
-                return res.status(400).json({ error: "Invalid request body" });
+                res.status(400).json({ error: "Invalid request body" });
+                return;
             }
 
             const { email, password } = parsedBody.data;
@@ -22,7 +23,8 @@ export const authController = {
         try {
             const parsedBody = signupSchema.safeParse(req.body);
             if (!parsedBody.success) {
-                return res.status(400).json({ error: "Invalid request body" });
+                res.status(400).json({ error: "Invalid request body" });
+                return;
             }
 
             const { email, password } = parsedBody.data;
