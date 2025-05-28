@@ -9,8 +9,8 @@ A Node.js + TypeScript microservice for managing user subscriptions and plans, f
 - **Node.js & TypeScript**  
 - **Express**  
 - **Prisma** (PostgreSQL or any SQL)  
-- **Redis** (with `node-redis`)  
-- **BullMQ** (Redis-backed job queue)  
+- **Redis** (with `ioredis`)  
+- **BullMQ** (job queue)  
 - **Zod** (request validation)  
 - **JSON Web Tokens** (authentication)  
 
@@ -54,7 +54,7 @@ A Node.js + TypeScript microservice for managing user subscriptions and plans, f
 ```
 
 6. **Verify the project is running**
-``` bash
+``` 
     GET http://localhost:3000/      → Hello World
 ```
 
