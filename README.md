@@ -338,3 +338,7 @@ Response: 200 OK
 }
 ```
 
+### output of redis-cli
+![image](https://github.com/user-attachments/assets/6fc88a2d-1c41-44cc-948a-c617bbf8f648)
+
+
