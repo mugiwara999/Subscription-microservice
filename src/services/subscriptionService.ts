@@ -33,7 +33,7 @@ export const subscriptionService = {
     },
 
     async cancelSubscription(id: string , user_id: string): Promise<Subscription | null> {
-        const sub = await subscriptionRepo.getByUserId(id);
+        const sub = await subscriptionRepo.getByUserId(user_id);
         if (!sub) {
             throw { statusCode: 404, message: 'Subscription not found' };
         }

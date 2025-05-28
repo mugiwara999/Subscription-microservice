@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { subscriptionService } from '../services/subscriptionService';
+import { createSubscriptionSchema } from '../types';
 
 export const subscriptionController = { 
     async create(req: Request, res: Response, next: NextFunction) {
@@ -9,7 +10,14 @@ export const subscriptionController = {
                 res.status(401).json({ error: 'Unauthorized' });
                 return;
             }
-            const { plan_id } = req.body;
+
+            const parsedBody = createSubscriptionSchema.safeParse(req.body);
+            if (!parsedBody.success) {
+                res.status(400).json({ error: "Invalid request body" });
+                return;
+            }
+            const { plan_id } = parsedBody.data;
+
             const subscription = await subscriptionService.create({ user_id, plan_id });
             res.status(200).json(subscription);
         } catch (error) {
