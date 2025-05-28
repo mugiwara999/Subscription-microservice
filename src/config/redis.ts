@@ -1,7 +1,10 @@
 import { Redis } from "ioredis";
 import { env } from "./env";
 
-const redis = new Redis()
+const redis = new Redis({
+    maxRetriesPerRequest: null,
+    enableReadyCheck: false,
+})
 
 redis.on("connect", () => {
     console.log("Connected to Redis");
