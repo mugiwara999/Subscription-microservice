@@ -12,3 +12,44 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  password String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Subscriptions Subscription[]
+}
+
+
+model Plan {
+  id String @id @default(uuid())
+  name String
+  price Decimal @db.Decimal(10, 2)
+  features String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  duration Int
+  Subscriptions Subscription[]
+}
+
+model Subscription {
+  id String @id @default(uuid())
+  user_id String
+  user User @relation(fields: [user_id], references: [id])
+  plan_id String
+  plan Plan @relation(fields: [plan_id], references: [id])
+  status SubscriptionStatus @default(INACTIVE)
+  startedAt DateTime @default(now())
+  expiresAt DateTime 
+  @@index([user_id])
+} 
+
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  CANCELLED
+  EXPIRED
+}
